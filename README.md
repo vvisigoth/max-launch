@@ -7,6 +7,9 @@ the surface by hand.
 Built to develop a Max patch against when the hardware isn't around — and then verified
 against the hardware, which corrected nine things the documentation had wrong or unsaid.
 
+![The panel: the emulated surface with LEDs lit, two faders showing pickup targets, the
+128×64 screen, and a decoded MIDI traffic log](docs/panel.png)
+
 ```
 ┌──────────────────────┐   WebSocket    ┌──────────────────────────────┐
 │  panel (browser)     │◄──────────────►│  bridge (Node)               │

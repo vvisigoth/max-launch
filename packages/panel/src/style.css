@@ -199,6 +199,7 @@ body {
   align-items: center;
   gap: 4px;
   min-width: 0;
+  min-height: 0;
 }
 
 .control__label {
@@ -240,15 +241,16 @@ body {
 
 .fader {
   grid-row: 4;
-  height: 100%;
-  min-height: 150px;
+  /* Room for the track plus its value label. Without a floor here the track's
+     flex-grow squeezes the label out of the row and the value gets clipped. */
+  min-height: 168px;
 }
 
 .fader__track {
   position: relative;
   width: 26px;
-  height: 100%;
-  min-height: 150px;
+  flex: 1 1 auto;
+  min-height: 120px;
   margin: 0 auto;
   background: var(--slot);
   border: 1px solid #1c1e22;
