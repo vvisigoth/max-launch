@@ -1,0 +1,18 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.DS_Store
+
+# Recorded MIDI traces — regenerate with `npm run verify -- run`
+traces/
+captures/
+
+# Non-volatile device settings, written at runtime
+lcxl3.state.json
+
+# Local port-name overrides
+lcxl3.config.json
+
+# Novation's manuals: 29 MB of someone else's copyright.
+# `node scripts/fetch-docs.mjs` pulls them back down.
+spec/reference/*.pdf

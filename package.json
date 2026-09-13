@@ -1,0 +1,28 @@
+{
+  "name": "max-launch",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "gen:spec": "node scripts/gen-spec.mjs",
+    "typecheck": "npm run gen:spec && tsc --noEmit",
+    "test": "npm run gen:spec && vitest run",
+    "test:watch": "vitest",
+    "bridge": "node --disable-warning=ExperimentalWarning --experimental-strip-types packages/bridge/src/cli.ts",
+    "panel": "npm run dev --workspace @lcxl3/panel",
+    "panel:build": "npm run build --workspace @lcxl3/panel",
+    "verify": "node --disable-warning=ExperimentalWarning --experimental-strip-types packages/verify/src/cli.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/ws": "^8.18.1",
+    "typescript": "^5.9.0",
+    "vite": "^8.2.2",
+    "vitest": "^5.0.0"
+  }
+}

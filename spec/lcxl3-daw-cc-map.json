@@ -1,0 +1,116 @@
+{
+  "$comment": "Launch Control XL 3 DAW-mode control map. Transcribed from the official Programmer's Reference Guide v1.0, page 9 (see spec/reference/cc-map-decimal.png). Channels are 1-based as printed in the guide.",
+  "source": "Novation Launch Control XL 3 Programmer's Reference Guide v1.0, p.9-10, p.17",
+  "verified": "against official documentation; NOT yet against hardware capture",
+  "notes": {
+    "ledAddressing": "The same control index is used to colour that control's LED: B0h <index> <palette 0-127>. The official guide specifies channel 1 (B0h). Captures of Ableton Live 12 show it also emitting BFh (channel 16) for some indices - accept both on input.",
+    "touchEvents": "When enabled (CC 71 ch7), touch on/off is CC on channel 15 using the same control index, value 127 = on, 0 = off. Example: leftmost fader = BEh 05h 7Fh.",
+    "shift": "Shift is on channel 7 because it is bound to feature control 3Fh (63).",
+    "mode": "The Mode button emits nothing (n/a); it is a local UI button."
+  },
+  "channels": {
+    "encodersAndFaders": 16,
+    "buttons": 1,
+    "shift": 7,
+    "featureControls": 7,
+    "featureControlQueries": 8,
+    "touch": 15
+  },
+  "controls": {
+    "faders": {
+      "channel": 16,
+      "cc": [5, 6, 7, 8, 9, 10, 11, 12]
+    },
+    "encoderRow1": {
+      "channel": 16,
+      "ccAbsolute": [13, 14, 15, 16, 17, 18, 19, 20],
+      "ccRelative": [77, 78, 79, 80, 81, 82, 83, 84],
+      "relativeToggleCC": 69
+    },
+    "encoderRow2": {
+      "channel": 16,
+      "ccAbsolute": [21, 22, 23, 24, 25, 26, 27, 28],
+      "ccRelative": [85, 86, 87, 88, 89, 90, 91, 92],
+      "relativeToggleCC": 72
+    },
+    "encoderRow3": {
+      "channel": 16,
+      "ccAbsolute": [29, 30, 31, 32, 33, 34, 35, 36],
+      "ccRelative": [93, 94, 95, 96, 97, 98, 99, 100],
+      "relativeToggleCC": 73
+    },
+    "buttonRowTop": {
+      "channel": 1,
+      "cc": [37, 38, 39, 40, 41, 42, 43, 44]
+    },
+    "buttonRowBottom": {
+      "channel": 1,
+      "cc": [45, 46, 47, 48, 49, 50, 51, 52]
+    },
+    "soloArm": { "channel": 1, "cc": 65 },
+    "muteSelect": { "channel": 1, "cc": 66 },
+    "utilitySmallButton": { "channel": 1, "cc": 104, "$comment": "unlabelled small button left of the top button row" },
+    "trackPrev": { "channel": 1, "cc": 103 },
+    "trackNext": { "channel": 1, "cc": 102 },
+    "pageUp": { "channel": 1, "cc": 106 },
+    "pageDown": { "channel": 1, "cc": 107 },
+    "record": { "channel": 1, "cc": 118 },
+    "play": { "channel": 1, "cc": 116 },
+    "shift": { "channel": 7, "cc": 63 },
+    "mode": { "channel": null, "cc": null }
+  },
+  "relativeEncoding": {
+    "pivot": 64,
+    "$comment": "65 = one step clockwise, 63 = one step anticlockwise; further from pivot = faster"
+  },
+  "featureControls": {
+    "$comment": "Sent to the DAW In port on channel 7 to set; channel 8 to query; replies always on channel 7. (*) non-volatile, (#) always enabled in DAW mode.",
+    "30": { "name": "surfaceModeSelect", "flags": "#", "values": { "1": "DAW Mixer", "2": "DAW Control", "6-9": "Custom Modes 1-4", "18-29": "Custom Modes 5-16" } },
+    "63": { "name": "shiftOnOff", "flags": "#" },
+    "69": { "name": "encoderRow1Relative", "flags": "#" },
+    "70": { "name": "faderPickup", "flags": "#" },
+    "71": { "name": "touchEvents", "flags": "#" },
+    "72": { "name": "encoderRow2Relative", "flags": "#" },
+    "73": { "name": "encoderRow3Relative", "flags": "#" },
+    "100": { "name": "globalMidiChannel", "flags": "*", "range": [0, 15] },
+    "111": { "name": "ledBrightness", "flags": "*", "range": [0, 127] },
+    "112": { "name": "screenBrightness", "flags": "*", "range": [0, 127] },
+    "113": { "name": "temporaryDisplayTimeout", "flags": "*", "range": [0, 99], "units": "tenths of a second, minimum 1 second at 0" },
+    "120": { "name": "out2MidiThru", "flags": "*" },
+    "121": { "name": "encoderCurve", "flags": "*", "values": { "0": "slow", "1": "medium", "2": "fast" } }
+  },
+  "sysex": {
+    "header": [240, 0, 32, 41, 2, 21],
+    "headerHex": "F0 00 20 29 02 15",
+    "commands": {
+      "0x01_0x53": "set RGB colour: F0 00 20 29 02 15 01 53 <index> <R> <G> <B> F7",
+      "0x02": "DAW mode: 02 7F = enable, 02 00 = disable (device echoes)",
+      "0x04": "configure display: 04 <target> <config> F7",
+      "0x06": "set display text: 06 <target> <field> <ascii...> F7",
+      "0x09": "bitmap: 09 <target> <1216 bytes> F7; device replies F0 00 20 29 02 15 09 7F"
+    },
+    "noteAliases": {
+      "enableDawMode": [159, 12, 127],
+      "disableDawMode": [159, 12, 0],
+      "enableFeatureControls": [159, 11, 127],
+      "disableFeatureControls": [159, 11, 0]
+    }
+  },
+  "displayTargets": {
+    "5-12": "temporary display for faders",
+    "13-36": "temporary display for encoders",
+    "32": "bitmap: stationary display",
+    "33": "bitmap: global temporary display",
+    "53": "permanent / stationary display",
+    "54": "overlay / temporary display"
+  },
+  "displayArrangements": {
+    "0": "cancel display",
+    "1": "2 lines: parameter name + text value (2 fields)",
+    "2": "3 lines: title, parameter name, text value (3 fields)",
+    "3": "1 line + 2x4: title and 8 names (9 fields)",
+    "4": "2 lines: parameter name + numeric value (default, 1 field)",
+    "31": "trigger display with current contents",
+    "$bits": "bit 6 = auto temporary display on change (default set); bit 5 = auto temporary display on touch (default set); bits 0-4 = arrangement id"
+  }
+}

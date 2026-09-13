@@ -1,0 +1,11 @@
+{
+  "name": "@lcxl3/bridge",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@julusian/midi": "^3.8.1",
+    "@lcxl3/core": "*",
+    "ws": "^8.21.3"
+  }
+}
