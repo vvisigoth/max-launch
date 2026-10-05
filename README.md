@@ -173,6 +173,16 @@ Undocumented behaviour found along the way:
   release notes mention screen changes but never custom graphics. The guide documents the
   feature in full. Re-test with `scripts/bitmap-probe.mjs` after a firmware update.
 
+## Talking to it from Max
+
+Two ready-made patches are in [`max/`](max/): an abstraction that claims the device, releases
+it on close, and hands you `(cc value)` lists, plus a test patch that proves the link in both
+directions before you wire anything up. See [`max/README.md`](max/README.md).
+
+```
+npm run bridge -- start        # then open max/lcxl3.test.maxpat
+```
+
 ## Development
 
 ```bash
