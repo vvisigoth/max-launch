@@ -12,8 +12,8 @@
   "rect": [
    60.0,
    80.0,
-   980.0,
-   760.0
+   1020.0,
+   780.0
   ],
   "openinpresentation": 0,
   "default_fontsize": 12.0,
@@ -54,7 +54,7 @@
      "patching_rect": [
       20,
       15,
-      620,
+      660,
       22
      ],
      "text": "lcxl3.connect \u2014 talks to the Launch Control XL 3 (emulator or hardware)."
@@ -69,10 +69,10 @@
      "patching_rect": [
       20,
       35,
-      620,
+      660,
       22
      ],
-     "text": "INLET: (index colour) lights an LED.  e.g. 13 5  =  encoder 1.1 red"
+     "text": "INLET: (index colour) lights an LED.   e.g.  13 5  =  encoder 1.1 red"
     }
    },
    {
@@ -84,10 +84,10 @@
      "patching_rect": [
       20,
       80,
-      600,
+      560,
       22
      ],
-     "text": "The surface sends NOTHING until a host claims it. This does that on load,"
+     "text": "CLAIMING. The surface sends nothing until a host claims it."
     }
    },
    {
@@ -99,21 +99,86 @@
      "patching_rect": [
       20,
       98,
-      600,
+      620,
       22
      ],
-     "text": "and hands the device back when the patch closes."
+     "text": "live.thisdevice bangs when the DEVICE is fully initialised \u2014 loadbang can fire"
     }
    },
    {
     "box": {
      "id": "obj-5",
+     "maxclass": "comment",
+     "numinlets": 1,
+     "numoutlets": 0,
+     "patching_rect": [
+      20,
+      116,
+      620,
+      22
+     ],
+     "text": "too early in Max for Live. Its middle outlet hands the controller back when you"
+    }
+   },
+   {
+    "box": {
+     "id": "obj-6",
+     "maxclass": "comment",
+     "numinlets": 1,
+     "numoutlets": 0,
+     "patching_rect": [
+      20,
+      134,
+      620,
+      22
+     ],
+     "text": "disable the device, and freebang does so when the device is actually removed."
+    }
+   },
+   {
+    "box": {
+     "id": "obj-7",
+     "maxclass": "comment",
+     "numinlets": 1,
+     "numoutlets": 0,
+     "patching_rect": [
+      20,
+      152,
+      620,
+      22
+     ],
+     "text": "(closebang is wrong here: in M4L it fires when the patcher WINDOW closes.)"
+    }
+   },
+   {
+    "box": {
+     "id": "obj-8",
+     "maxclass": "newobj",
+     "numinlets": 1,
+     "numoutlets": 3,
+     "patching_rect": [
+      20,
+      185,
+      125,
+      22
+     ],
+     "text": "live.thisdevice",
+     "outlettype": [
+      "",
+      "",
+      ""
+     ]
+    }
+   },
+   {
+    "box": {
+     "id": "obj-9",
      "maxclass": "newobj",
      "numinlets": 1,
      "numoutlets": 1,
      "patching_rect": [
-      20,
-      125,
+      190,
+      185,
       76,
       22
      ],
@@ -125,13 +190,51 @@
    },
    {
     "box": {
-     "id": "obj-6",
+     "id": "obj-10",
+     "maxclass": "newobj",
+     "numinlets": 1,
+     "numoutlets": 3,
+     "patching_rect": [
+      120,
+      225,
+      69,
+      22
+     ],
+     "text": "sel 1 0",
+     "outlettype": [
+      "",
+      "",
+      ""
+     ]
+    }
+   },
+   {
+    "box": {
+     "id": "obj-11",
+     "maxclass": "newobj",
+     "numinlets": 1,
+     "numoutlets": 1,
+     "patching_rect": [
+      440,
+      185,
+      76,
+      22
+     ],
+     "text": "freebang",
+     "outlettype": [
+      ""
+     ]
+    }
+   },
+   {
+    "box": {
+     "id": "obj-12",
      "maxclass": "newobj",
      "numinlets": 1,
      "numoutlets": 1,
      "patching_rect": [
       20,
-      155,
+      270,
       83,
       22
      ],
@@ -143,13 +246,13 @@
    },
    {
     "box": {
-     "id": "obj-7",
+     "id": "obj-13",
      "maxclass": "message",
      "numinlets": 1,
      "numoutlets": 1,
      "patching_rect": [
       20,
-      185,
+      305,
       250,
       22
      ],
@@ -161,31 +264,13 @@
    },
    {
     "box": {
-     "id": "obj-8",
-     "maxclass": "newobj",
-     "numinlets": 1,
-     "numoutlets": 1,
-     "patching_rect": [
-      300,
-      125,
-      83,
-      22
-     ],
-     "text": "closebang",
-     "outlettype": [
-      ""
-     ]
-    }
-   },
-   {
-    "box": {
-     "id": "obj-9",
+     "id": "obj-14",
      "maxclass": "message",
      "numinlets": 1,
      "numoutlets": 1,
      "patching_rect": [
-      300,
-      185,
+      330,
+      305,
       240,
       22
      ],
@@ -197,46 +282,43 @@
    },
    {
     "box": {
-     "id": "obj-10",
+     "id": "obj-15",
      "maxclass": "newobj",
      "numinlets": 1,
-     "numoutlets": 1,
+     "numoutlets": 0,
      "patching_rect": [
       20,
-      230,
+      350,
       220,
       22
      ],
-     "text": "midiout \"LCXL3 1 DAW In\"",
-     "outlettype": [
-      ""
-     ]
+     "text": "midiout \"LCXL3 1 DAW In\""
     }
    },
    {
     "box": {
-     "id": "obj-11",
+     "id": "obj-16",
      "maxclass": "comment",
      "numinlets": 1,
      "numoutlets": 0,
      "patching_rect": [
-      560,
+      700,
       80,
-      380,
+      300,
       22
      ],
-     "text": "LEDs. Colour index 0 turns one off; 5 is red, 21 green, 45 blue."
+     "text": "LEDs. Index is the control's own CC. Colour 0 is off."
     }
    },
    {
     "box": {
-     "id": "obj-12",
+     "id": "obj-17",
      "maxclass": "inlet",
      "numinlets": 0,
      "numoutlets": 1,
      "patching_rect": [
-      560,
-      125,
+      700,
+      185,
       25,
       25
      ],
@@ -244,18 +326,18 @@
      "outlettype": [
       ""
      ],
-     "comment": "(index colour) \u2192 LED"
+     "comment": "(index colour) -> LED"
     }
    },
    {
     "box": {
-     "id": "obj-13",
+     "id": "obj-18",
      "maxclass": "newobj",
      "numinlets": 1,
      "numoutlets": 1,
      "patching_rect": [
-      560,
-      160,
+      700,
+      225,
       62,
       22
      ],
@@ -267,13 +349,13 @@
    },
    {
     "box": {
-     "id": "obj-14",
+     "id": "obj-19",
      "maxclass": "newobj",
      "numinlets": 1,
      "numoutlets": 2,
      "patching_rect": [
-      560,
-      190,
+      700,
+      265,
       90,
       22
      ],
@@ -286,13 +368,13 @@
    },
    {
     "box": {
-     "id": "obj-15",
+     "id": "obj-20",
      "maxclass": "newobj",
      "numinlets": 2,
      "numoutlets": 0,
      "patching_rect": [
-      560,
-      230,
+      700,
+      350,
       210,
       22
      ],
@@ -301,29 +383,29 @@
    },
    {
     "box": {
-     "id": "obj-16",
+     "id": "obj-21",
      "maxclass": "comment",
      "numinlets": 1,
      "numoutlets": 0,
      "patching_rect": [
       20,
-      330,
-      300,
+      440,
+      320,
       22
      ],
-     "text": "ch16 \u2014 faders and encoders"
+     "text": "ch16 - faders and encoders"
     }
    },
    {
     "box": {
-     "id": "obj-17",
+     "id": "obj-22",
      "maxclass": "comment",
      "numinlets": 1,
      "numoutlets": 0,
      "patching_rect": [
       20,
-      348,
-      300,
+      458,
+      320,
       22
      ],
      "text": "faders 5-12, encoders 13-36"
@@ -331,13 +413,13 @@
    },
    {
     "box": {
-     "id": "obj-18",
+     "id": "obj-23",
      "maxclass": "newobj",
      "numinlets": 1,
      "numoutlets": 2,
      "patching_rect": [
       20,
-      380,
+      490,
       220,
       22
      ],
@@ -350,13 +432,13 @@
    },
    {
     "box": {
-     "id": "obj-19",
+     "id": "obj-24",
      "maxclass": "newobj",
      "numinlets": 2,
      "numoutlets": 1,
      "patching_rect": [
       20,
-      415,
+      525,
       76,
       22
      ],
@@ -368,13 +450,13 @@
    },
    {
     "box": {
-     "id": "obj-20",
+     "id": "obj-25",
      "maxclass": "newobj",
      "numinlets": 1,
      "numoutlets": 1,
      "patching_rect": [
       20,
-      445,
+      560,
       62,
       22
      ],
@@ -386,13 +468,13 @@
    },
    {
     "box": {
-     "id": "obj-21",
+     "id": "obj-26",
      "maxclass": "outlet",
      "numinlets": 1,
      "numoutlets": 0,
      "patching_rect": [
       20,
-      490,
+      600,
       25,
       25
      ],
@@ -402,29 +484,29 @@
    },
    {
     "box": {
-     "id": "obj-22",
+     "id": "obj-27",
      "maxclass": "comment",
      "numinlets": 1,
      "numoutlets": 0,
      "patching_rect": [
-      340,
-      330,
-      300,
+      360,
+      440,
+      320,
       22
      ],
-     "text": "ch1 \u2014 buttons"
+     "text": "ch1 - buttons"
     }
    },
    {
     "box": {
-     "id": "obj-23",
+     "id": "obj-28",
      "maxclass": "comment",
      "numinlets": 1,
      "numoutlets": 0,
      "patching_rect": [
-      340,
-      348,
-      300,
+      360,
+      458,
+      320,
       22
      ],
      "text": "buttons 37-52, 65, 66, 102/103, 106/107, 116, 118"
@@ -432,13 +514,13 @@
    },
    {
     "box": {
-     "id": "obj-24",
+     "id": "obj-29",
      "maxclass": "newobj",
      "numinlets": 1,
      "numoutlets": 2,
      "patching_rect": [
-      340,
-      380,
+      360,
+      490,
       220,
       22
      ],
@@ -451,13 +533,13 @@
    },
    {
     "box": {
-     "id": "obj-25",
+     "id": "obj-30",
      "maxclass": "newobj",
      "numinlets": 2,
      "numoutlets": 1,
      "patching_rect": [
-      340,
-      415,
+      360,
+      525,
       76,
       22
      ],
@@ -469,13 +551,13 @@
    },
    {
     "box": {
-     "id": "obj-26",
+     "id": "obj-31",
      "maxclass": "newobj",
      "numinlets": 1,
      "numoutlets": 1,
      "patching_rect": [
-      340,
-      445,
+      360,
+      560,
       62,
       22
      ],
@@ -487,13 +569,13 @@
    },
    {
     "box": {
-     "id": "obj-27",
+     "id": "obj-32",
      "maxclass": "outlet",
      "numinlets": 1,
      "numoutlets": 0,
      "patching_rect": [
-      340,
-      490,
+      360,
+      600,
       25,
       25
      ],
@@ -503,43 +585,43 @@
    },
    {
     "box": {
-     "id": "obj-28",
+     "id": "obj-33",
      "maxclass": "comment",
      "numinlets": 1,
      "numoutlets": 0,
      "patching_rect": [
-      660,
-      330,
-      300,
+      700,
+      440,
+      320,
       22
      ],
-     "text": "ch7 \u2014 Shift and mode reports"
+     "text": "ch7 - Shift and mode reports"
     }
    },
    {
     "box": {
-     "id": "obj-29",
+     "id": "obj-34",
      "maxclass": "comment",
      "numinlets": 1,
      "numoutlets": 0,
      "patching_rect": [
-      660,
-      348,
-      300,
+      700,
+      458,
+      320,
       22
      ],
-     "text": "Shift 63, mode report 30, origin 31"
+     "text": "Shift 63, mode 30, origin 31"
     }
    },
    {
     "box": {
-     "id": "obj-30",
+     "id": "obj-35",
      "maxclass": "newobj",
      "numinlets": 1,
      "numoutlets": 2,
      "patching_rect": [
-      660,
-      380,
+      700,
+      490,
       220,
       22
      ],
@@ -552,13 +634,13 @@
    },
    {
     "box": {
-     "id": "obj-31",
+     "id": "obj-36",
      "maxclass": "newobj",
      "numinlets": 2,
      "numoutlets": 1,
      "patching_rect": [
-      660,
-      415,
+      700,
+      525,
       76,
       22
      ],
@@ -570,13 +652,13 @@
    },
    {
     "box": {
-     "id": "obj-32",
+     "id": "obj-37",
      "maxclass": "newobj",
      "numinlets": 1,
      "numoutlets": 1,
      "patching_rect": [
-      660,
-      445,
+      700,
+      560,
       62,
       22
      ],
@@ -588,13 +670,13 @@
    },
    {
     "box": {
-     "id": "obj-33",
+     "id": "obj-38",
      "maxclass": "outlet",
      "numinlets": 1,
      "numoutlets": 0,
      "patching_rect": [
-      660,
-      490,
+      700,
+      600,
       25,
       25
      ],
@@ -604,32 +686,47 @@
    },
    {
     "box": {
-     "id": "obj-34",
+     "id": "obj-39",
      "maxclass": "comment",
      "numinlets": 1,
      "numoutlets": 0,
      "patching_rect": [
       20,
-      545,
-      640,
+      650,
+      660,
       22
      ],
-     "text": "Every outlet emits a 2-element list: (cc value). Route it with [route 5 6 7 \u2026]."
+     "text": "Every outlet emits (cc value) \u2014 take it apart with [route 5 6 7 ...]."
     }
    },
    {
     "box": {
-     "id": "obj-35",
+     "id": "obj-40",
      "maxclass": "comment",
      "numinlets": 1,
      "numoutlets": 0,
      "patching_rect": [
       20,
-      565,
-      640,
+      670,
+      680,
       22
      ],
-     "text": "Control map: spec/lcxl3-daw-cc-map.json in the max-launch repo."
+     "text": "ONE INSTANCE ONLY: two copies both claim the device, both hear every control,"
+    }
+   },
+   {
+    "box": {
+     "id": "obj-41",
+     "maxclass": "comment",
+     "numinlets": 1,
+     "numoutlets": 0,
+     "patching_rect": [
+      20,
+      688,
+      680,
+      22
+     ],
+     "text": "and removing either one hands the controller back for both."
     }
    }
   ],
@@ -637,43 +734,7 @@
    {
     "patchline": {
      "destination": [
-      "obj-6",
-      0
-     ],
-     "source": [
-      "obj-5",
-      0
-     ]
-    }
-   },
-   {
-    "patchline": {
-     "destination": [
-      "obj-7",
-      0
-     ],
-     "source": [
-      "obj-6",
-      0
-     ]
-    }
-   },
-   {
-    "patchline": {
-     "destination": [
-      "obj-10",
-      0
-     ],
-     "source": [
-      "obj-7",
-      0
-     ]
-    }
-   },
-   {
-    "patchline": {
-     "destination": [
-      "obj-9",
+      "obj-12",
       0
      ],
      "source": [
@@ -685,11 +746,59 @@
    {
     "patchline": {
      "destination": [
-      "obj-10",
+      "obj-12",
       0
      ],
      "source": [
       "obj-9",
+      0
+     ]
+    }
+   },
+   {
+    "patchline": {
+     "destination": [
+      "obj-10",
+      0
+     ],
+     "source": [
+      "obj-8",
+      1
+     ]
+    }
+   },
+   {
+    "patchline": {
+     "destination": [
+      "obj-12",
+      0
+     ],
+     "source": [
+      "obj-10",
+      0
+     ]
+    }
+   },
+   {
+    "patchline": {
+     "destination": [
+      "obj-14",
+      0
+     ],
+     "source": [
+      "obj-10",
+      1
+     ]
+    }
+   },
+   {
+    "patchline": {
+     "destination": [
+      "obj-14",
+      0
+     ],
+     "source": [
+      "obj-11",
       0
      ]
     }
@@ -709,7 +818,7 @@
    {
     "patchline": {
      "destination": [
-      "obj-14",
+      "obj-15",
       0
      ],
      "source": [
@@ -722,22 +831,22 @@
     "patchline": {
      "destination": [
       "obj-15",
-      1
+      0
      ],
      "source": [
       "obj-14",
-      1
+      0
      ]
     }
    },
    {
     "patchline": {
      "destination": [
-      "obj-15",
+      "obj-18",
       0
      ],
      "source": [
-      "obj-14",
+      "obj-17",
       0
      ]
     }
@@ -757,11 +866,11 @@
    {
     "patchline": {
      "destination": [
-      "obj-19",
+      "obj-20",
       1
      ],
      "source": [
-      "obj-18",
+      "obj-19",
       1
      ]
     }
@@ -781,12 +890,24 @@
    {
     "patchline": {
      "destination": [
-      "obj-21",
+      "obj-24",
       0
      ],
      "source": [
-      "obj-20",
+      "obj-23",
       0
+     ]
+    }
+   },
+   {
+    "patchline": {
+     "destination": [
+      "obj-24",
+      1
+     ],
+     "source": [
+      "obj-23",
+      1
      ]
     }
    },
@@ -805,18 +926,6 @@
    {
     "patchline": {
      "destination": [
-      "obj-25",
-      1
-     ],
-     "source": [
-      "obj-24",
-      1
-     ]
-    }
-   },
-   {
-    "patchline": {
-     "destination": [
       "obj-26",
       0
      ],
@@ -829,12 +938,24 @@
    {
     "patchline": {
      "destination": [
-      "obj-27",
+      "obj-30",
       0
      ],
      "source": [
-      "obj-26",
+      "obj-29",
       0
+     ]
+    }
+   },
+   {
+    "patchline": {
+     "destination": [
+      "obj-30",
+      1
+     ],
+     "source": [
+      "obj-29",
+      1
      ]
     }
    },
@@ -853,18 +974,6 @@
    {
     "patchline": {
      "destination": [
-      "obj-31",
-      1
-     ],
-     "source": [
-      "obj-30",
-      1
-     ]
-    }
-   },
-   {
-    "patchline": {
-     "destination": [
       "obj-32",
       0
      ],
@@ -877,11 +986,47 @@
    {
     "patchline": {
      "destination": [
-      "obj-33",
+      "obj-36",
       0
      ],
      "source": [
-      "obj-32",
+      "obj-35",
+      0
+     ]
+    }
+   },
+   {
+    "patchline": {
+     "destination": [
+      "obj-36",
+      1
+     ],
+     "source": [
+      "obj-35",
+      1
+     ]
+    }
+   },
+   {
+    "patchline": {
+     "destination": [
+      "obj-37",
+      0
+     ],
+     "source": [
+      "obj-36",
+      0
+     ]
+    }
+   },
+   {
+    "patchline": {
+     "destination": [
+      "obj-38",
+      0
+     ],
+     "source": [
+      "obj-37",
       0
      ]
     }

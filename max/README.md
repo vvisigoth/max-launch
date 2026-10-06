@@ -7,8 +7,47 @@ Two patches for talking to the emulator (or the hardware — they're identical o
 - **`lcxl3.test.maxpat`** — open this first. Prints everything arriving, lets you poke LEDs by
   hand, and lights a button when you press it, which proves both directions at once.
 
-Put `lcxl3.connect.maxpat` somewhere on Max's search path — beside the patch that uses it is
+Put `lcxl3.connect.maxpat` somewhere on Max's search path — beside the device that uses it is
 simplest, or `~/Documents/Max 9/Library/`.
+
+## In Max for Live
+
+`lcxl3.connect` is an abstraction, so it drops into an `.amxd` device unchanged. Three things
+differ from plain Max, and the abstraction already handles them:
+
+**`loadbang` fires too early.** In a device, `[live.thisdevice]` is the one that bangs when
+the device is *fully initialised* — and again on every preset load, which is exactly when you
+want to re-claim. Both are wired, so the abstraction works in plain Max too.
+
+**`closebang` is actively wrong.** Max's own reference: it "sends a bang whenever the patcher
+**window** within which it resides is closed". In a device that's just you closing the Max
+editor — the device is still running, and releasing the controller there would be a mystery to
+debug. `[freebang]` fires when the patcher is genuinely freed, which is what you want.
+
+**Disabling the device hands the controller back.** `live.thisdevice`'s middle outlet reports
+enable/disable, so switching the device off in Live releases the LCXL3 and switching it on
+re-claims it.
+
+### One instance only
+
+Two copies of the device both claim the controller, both receive every control, and removing
+either one releases it for both. This is inherent to sharing one surface — nothing in the
+protocol arbitrates. Run one instance, or gate the input per-instance on something like the
+track's arm state.
+
+### Live will take the port if you let it
+
+If the Launch Control XL 3 is selected as a Control Surface in Live's MIDI preferences, Live
+claims the DAW port exclusively and your Max objects see nothing at all. Set that slot to
+**None**. This applies to the real hardware; the emulator's ports are only visible to Live if
+you've pointed a Control Surface at them.
+
+### `midiin`/`midiout` mean two different things
+
+Bare `[midiout]` in a Max MIDI Effect sends to Live's device chain — that's the one your
+sequencer already uses to play notes. `[midiout "LCXL3 1 DAW In"]` with a port argument
+addresses that port instead ("transmits raw MIDI data to a specified port", per the reference).
+They coexist; just don't confuse which is which when patching.
 
 ## Using it
 
